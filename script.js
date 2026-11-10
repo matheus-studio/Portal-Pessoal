@@ -15,9 +15,7 @@
     instagram:
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.5 5.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>',
     tiktok:
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.2v13.1a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.1 6.1 0 1 0 5.2 6V8.6a7.4 7.4 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-4.3-4.3z"/></svg>',
-    whatsapp:
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4 5.3 5.3 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c0-.1-.2-.2-.4-.3z"/></svg>'
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.2v13.1a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.1 6.1 0 1 0 5.2 6V8.6a7.4 7.4 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-4.3-4.3z"/></svg>'
   };
 
   // Imagem que não existe vira um bloco: dourado com inicial "M" ou cinza liso.
@@ -33,15 +31,29 @@
     img.replaceWith(block);
   }, true);
 
-  function socialLinks(list) {
-    return list
+  const socialLinks = (list) =>
+    list
       .map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.label)}" title="${esc(s.label)}">${ICONS[s.id] || ''}</a>`)
       .join('');
-  }
 
-  function cardHTML(item) {
-    const ext = isExternal(item.href);
-    const attrs = ext ? ' target="_blank" rel="noopener"' : '';
+  const tabsHTML = (tabs, current) => `
+    <nav class="tabs" aria-label="Seções">
+      <ul class="tabs-list">
+        ${tabs.map((t) => `<li><a href="${esc(t.href)}"${t.id === current ? ' aria-current="page"' : ''}>${esc(t.label)}</a></li>`).join('')}
+      </ul>
+    </nav>`;
+
+  const heroHTML = (profile) => `
+    <section class="hero" aria-labelledby="name">
+      <img class="avatar" src="${esc(profile.image)}" alt="${esc(profile.alt)}" width="140" height="140" data-fallback="M">
+      <h1 class="hero-name" id="name">${esc(profile.name)}</h1>
+      <p class="hero-label">${esc(profile.label)}</p>
+    </section>`;
+
+  const labelHTML = (text) => `<h1 class="section-label">${esc(text)}</h1>`;
+
+  const cardHTML = (item) => {
+    const attrs = isExternal(item.href) ? ' target="_blank" rel="noopener"' : '';
     return `
       <li>
         <a class="card" href="${esc(item.href)}"${attrs}>
@@ -54,26 +66,38 @@
           </span>
         </a>
       </li>`;
-  }
+  };
 
-  function siteHTML(site) {
-    return `
-      <li class="site-item">
-        <a class="site" href="${esc(site.url)}" target="_blank" rel="noopener" aria-label="Abrir site de ${esc(site.client)} em nova aba">
-          <span class="site-bar">
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            <span class="site-url">${esc(site.display)}</span>
-          </span>
-          <img class="site-thumb" src="${esc(site.thumb)}" alt="Captura do site ${esc(site.client)}" loading="lazy" data-fallback="gray">
-          <span class="site-foot">
-            <span class="site-name">${esc(site.client)}</span>
-            <span class="site-link">Abrir site ↗</span>
-          </span>
-        </a>
-      </li>`;
-  }
+  const siteHTML = (site) => `
+    <li class="site-item">
+      <a class="site" href="${esc(site.url)}" target="_blank" rel="noopener" aria-label="Abrir site de ${esc(site.client)} em nova aba">
+        <span class="site-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="site-url">${esc(site.display)}</span>
+        </span>
+        <img class="site-thumb" src="${esc(site.thumb)}" alt="Captura do site ${esc(site.client)}" loading="lazy" data-fallback="gray">
+        <span class="site-foot">
+          <span class="site-name">${esc(site.client)}</span>
+          <span class="site-link">Abrir site ↗</span>
+        </span>
+      </a>
+    </li>`;
 
-  function renderCarousel(items) {
+  const carouselShell = `
+    <div class="carousel">
+      <ul class="track" id="track"></ul>
+      <div class="carousel-ctrl">
+        <button type="button" class="nav-btn" id="prev" aria-label="Site anterior">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <div class="dots" id="dots"></div>
+        <button type="button" class="nav-btn" id="next" aria-label="Próximo site">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+    </div>`;
+
+  function initCarousel(items) {
     const track = $('#track');
     const dots = $('#dots');
     const prev = $('#prev');
@@ -111,83 +135,94 @@
     update();
   }
 
-  function initScrollSpy() {
-    const links = $$('#tabs a');
-    const setActive = (id) => {
-      links.forEach((a) => {
-        if (a.getAttribute('href') === `#${id}`) a.setAttribute('aria-current', 'true');
-        else a.removeAttribute('aria-current');
-      });
-    };
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
-      { rootMargin: '-150px 0px -55% 0px' }
-    );
-    $$('main section[id]').forEach((s) => io.observe(s));
+  function pageContent(page, data, label) {
+    switch (page) {
+      case 'portal':
+        return `
+          ${heroHTML(data.profile)}
+          <section class="section">
+            ${labelHTML(label)}
+            <ul class="links">${data.portal.items.map(cardHTML).join('')}</ul>
+            <p class="disclaimer">${esc(data.portal.disclaimer)}</p>
+          </section>`;
+
+      case 'projetos':
+        return `
+          <section class="section">
+            ${labelHTML(label)}
+            ${carouselShell}
+          </section>`;
+
+      case 'produto': {
+        const p = data.product;
+        return `
+          <section class="section">
+            ${labelHTML(label)}
+            <div class="links">
+              <div class="card card-static">
+                <img class="thumb" src="${esc(p.thumb)}" alt="Miniatura de ${esc(p.title)}" width="96" height="96" loading="lazy" data-fallback="M">
+                <div class="card-body">
+                  <span class="badge">${esc(p.badge)}</span>
+                  <span class="card-title">${esc(p.title)}</span>
+                  <span class="card-desc">${esc(p.description)}</span>
+                  <a class="btn-outline" href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.cta)}</a>
+                </div>
+              </div>
+            </div>
+          </section>`;
+      }
+
+      case 'quem-sou-eu': {
+        const a = data.about;
+        return `
+          <section class="section">
+            ${labelHTML(label)}
+            <div class="about">
+              <img class="about-photo" src="${esc(a.photo)}" alt="${esc(data.profile.alt)}" width="200" height="200" loading="lazy" data-fallback="M">
+              <p class="about-text">${esc(a.text)}</p>
+              <div class="stats">
+                ${a.stats.map((s) => `
+                  <div class="stat">
+                    <span class="stat-value">${esc(s.value)}</span>
+                    <span class="stat-label">${esc(s.label)}</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+          </section>`;
+      }
+
+      case 'jornada':
+        return `
+          <section class="section">
+            ${labelHTML(label)}
+            <ol class="journey">
+              ${data.journey.items.map((j) => `<li><span class="when">${esc(j.when)}</span><span class="journey-text">${esc(j.text)}</span></li>`).join('')}
+            </ol>
+          </section>`;
+
+      default:
+        return '';
+    }
   }
 
   function render(data) {
-    document.title = data.pageTitle;
+    const page = document.body.dataset.page || 'portal';
+    const tab = data.tabs.find((t) => t.id === page);
+    const label = tab ? tab.label : '';
+
+    document.title = page === 'portal' ? data.pageTitle : `${label} · ${data.wordmark}`;
     $('#wordmark').textContent = data.wordmark;
     $('#social-top').innerHTML = socialLinks(data.social);
     $('#social-footer').innerHTML = socialLinks(data.social);
 
-    const avatar = $('#avatar');
-    avatar.src = data.profile.image;
-    avatar.alt = data.profile.alt;
-    avatar.loading = 'eager';
-    $('#name').textContent = data.profile.name;
-    $('#hero-label').textContent = data.profile.label;
+    $('#page').innerHTML = `${tabsHTML(data.tabs, page)}<div class="wrap">${pageContent(page, data, label)}</div>`;
 
-    $('#tabs').innerHTML = data.tabs
-      .map((t) => `<li><a href="#${esc(t.target)}">${esc(t.label)}</a></li>`)
-      .join('');
-    $$('[data-section]').forEach((h) => {
-      const tab = data.tabs.find((t) => t.target === h.dataset.section);
-      if (tab) h.textContent = tab.label;
-    });
-
-    $('#links').innerHTML = data.portal.items.map(cardHTML).join('');
-    $('#disclaimer').textContent = data.portal.disclaimer;
-
-    renderCarousel(data.projects.items);
-
-    const p = data.product;
-    $('#product').innerHTML = `
-      <div class="links">
-        <div class="card card-static">
-          <img class="thumb" src="${esc(p.thumb)}" alt="Miniatura de ${esc(p.title)}" width="96" height="96" loading="lazy" data-fallback="M">
-          <div class="card-body">
-            <span class="badge">${esc(p.badge)}</span>
-            <span class="card-title">${esc(p.title)}</span>
-            <span class="card-desc">${esc(p.description)}</span>
-            <a class="btn-outline" href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.cta)}</a>
-          </div>
-        </div>
-      </div>`;
-
-    const a = data.about;
-    $('#about').innerHTML = `
-      <img class="about-photo" src="${esc(a.photo)}" alt="${esc(data.profile.alt)}" width="200" height="200" loading="lazy" data-fallback="M">
-      <p class="about-text">${esc(a.text)}</p>
-      <div class="stats">
-        ${a.stats.map((s) => `
-          <div class="stat">
-            <span class="stat-value">${esc(s.value)}</span>
-            <span class="stat-label">${esc(s.label)}</span>
-          </div>`).join('')}
-      </div>`;
-
-    $('#journey').innerHTML = data.journey.items
-      .map((j) => `<li><span class="when">${esc(j.when)}</span><span class="journey-text">${esc(j.text)}</span></li>`)
-      .join('');
+    if (page === 'projetos') initCarousel(data.projects.items);
 
     $('#copyright').textContent = data.footer.copyright;
     const wa = $('#footer-wa');
     wa.href = data.footer.whatsapp.url;
     wa.textContent = data.footer.whatsapp.label;
-
-    initScrollSpy();
   }
 
   function initTopbar() {
@@ -195,11 +230,6 @@
     const onScroll = () => bar.classList.toggle('is-scrolled', window.scrollY > 8);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-  }
-
-  function showError(message) {
-    const main = $('main');
-    if (main) main.insertAdjacentHTML('afterbegin', `<p class="wrap" style="padding-top:120px;color:#8E877C">${esc(message)}</p>`);
   }
 
   initTopbar();
@@ -212,6 +242,7 @@
     .then(render)
     .catch((err) => {
       console.error('Não foi possível carregar content.json:', err);
-      showError('Não foi possível carregar o conteúdo. Abra a página por um servidor (veja o README).');
+      const main = $('#page');
+      if (main) main.innerHTML = '<p class="wrap" style="padding-top:120px;color:#8E877C">Não foi possível carregar o conteúdo. Abra a página por um servidor (veja o README).</p>';
     });
 })();

@@ -8,15 +8,43 @@
     "alt": "Foto de perfil de Matheus"
   },
   "social": [
-    { "id": "instagram", "label": "Instagram", "url": "https://www.instagram.com/matheus.studio_/" },
-    { "id": "tiktok", "label": "TikTok", "url": "https://www.tiktok.com/@SEUPERFIL" }
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/matheus.studio_/"
+    },
+    {
+      "id": "tiktok",
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@SEUPERFIL"
+    }
   ],
   "tabs": [
-    { "label": "Portal", "target": "portal" },
-    { "label": "Projetos", "target": "projetos" },
-    { "label": "Produto", "target": "produto" },
-    { "label": "Quem sou eu", "target": "quem-sou-eu" },
-    { "label": "Jornada", "target": "jornada" }
+    {
+      "id": "portal",
+      "label": "Portal",
+      "href": "index.html"
+    },
+    {
+      "id": "projetos",
+      "label": "Projetos",
+      "href": "projetos.html"
+    },
+    {
+      "id": "produto",
+      "label": "Produto",
+      "href": "produto.html"
+    },
+    {
+      "id": "quem-sou-eu",
+      "label": "Quem sou eu",
+      "href": "quem-sou-eu.html"
+    },
+    {
+      "id": "jornada",
+      "label": "Jornada",
+      "href": "jornada.html"
+    }
   ],
   "portal": {
     "items": [
@@ -45,7 +73,7 @@
         "title": "Meu produto",
         "description": "Em breve. Entre na lista para saber quando abrir.",
         "cta": "Ver",
-        "href": "#produto",
+        "href": "produto.html",
         "thumb": "images/card-4.jpg",
         "badge": "Em breve"
       }
@@ -80,20 +108,41 @@
     "photo": "images/perfil.jpg",
     "text": "[TROQUE PELA HISTÓRIA REAL] Este é um parágrafo de exemplo. Conte quem você é, o que faz e por que cria sites para negócios.",
     "stats": [
-      { "value": "0", "label": "sites" },
-      { "value": "IA", "label": "no dia a dia" },
-      { "value": "1", "label": "objetivo: seu site vendendo" }
+      {
+        "value": "0",
+        "label": "sites"
+      },
+      {
+        "value": "IA",
+        "label": "no dia a dia"
+      },
+      {
+        "value": "1",
+        "label": "objetivo: seu site vendendo"
+      }
     ]
   },
   "journey": {
     "items": [
-      { "when": "2024", "text": "[TROQUE] Primeiro projeto entregue." },
-      { "when": "2025", "text": "[TROQUE] Marco da sua jornada." },
-      { "when": "2026", "text": "[TROQUE] O que você faz hoje." }
+      {
+        "when": "2024",
+        "text": "[TROQUE] Primeiro projeto entregue."
+      },
+      {
+        "when": "2025",
+        "text": "[TROQUE] Marco da sua jornada."
+      },
+      {
+        "when": "2026",
+        "text": "[TROQUE] O que você faz hoje."
+      }
     ]
   },
   "footer": {
     "copyright": "© 2026 Matheus Studio",
-    "whatsapp": { "label": "Falar no WhatsApp", "url": "https://wa.me/55SEUNUMERO" }
+    "whatsapp": {
+      "label": "Falar no WhatsApp",
+      "url": "https://wa.me/55SEUNUMERO"
+    }
   }
 }

@@ -24,6 +24,7 @@ html {
 }
 
 body {
+  padding-top: 64px;
   background: var(--bg);
   color: var(--cream);
   font-family: var(--sans);
@@ -109,7 +110,7 @@ button { font: inherit; color: inherit; }
 /* ---------- Hero ---------- */
 
 .hero {
-  padding: 104px 0 28px;
+  padding: 40px 0 28px;
   text-align: center;
   animation: rise .6s ease both;
 }
@@ -175,9 +176,9 @@ button { font: inherit; color: inherit; }
 
 .tabs-list a:hover { color: var(--cream); }
 
-.tabs-list a[aria-current="true"] { color: var(--cream); }
+.tabs-list a[aria-current="page"] { color: var(--cream); }
 
-.tabs-list a[aria-current="true"]::after {
+.tabs-list a[aria-current="page"]::after {
   content: "";
   position: absolute;
   left: 12px;
