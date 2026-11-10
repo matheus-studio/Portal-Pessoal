@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matheus Studio · Portal pessoal</title>
+  <meta name="description" content="Portal pessoal do Matheus Studio: sites, projetos e links úteis.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0A08'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='serif' font-size='18' fill='%23C9A46A'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="topbar" id="topbar">
+    <div class="wrap topbar-inner">
+      <a class="wordmark" href="#topo" id="wordmark">Matheus Studio</a>
+      <nav class="social" id="social-top" aria-label="Redes sociais"></nav>
+    </div>
+  </header>
+
+  <main id="topo">
+    <div class="wrap">
+      <section class="hero" aria-labelledby="name">
+        <img class="avatar" id="avatar" alt="" width="140" height="140" data-fallback="M">
+        <h1 class="hero-name" id="name"></h1>
+        <p class="hero-label" id="hero-label"></p>
+      </section>
+    </div>
+
+    <nav class="tabs" aria-label="Seções da página">
+      <ul class="tabs-list" id="tabs"></ul>
+    </nav>
+
+    <div class="wrap">
+      <section class="section" id="portal" aria-labelledby="label-portal">
+        <h2 class="section-label" id="label-portal" data-section="portal"></h2>
+        <ul class="links" id="links"></ul>
+        <p class="disclaimer" id="disclaimer"></p>
+      </section>
+
+      <section class="section" id="projetos" aria-labelledby="label-projetos">
+        <h2 class="section-label" id="label-projetos" data-section="projetos"></h2>
+        <div class="carousel" id="carousel">
+          <ul class="track" id="track"></ul>
+          <div class="carousel-ctrl">
+            <button type="button" class="nav-btn" id="prev" aria-label="Site anterior">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+            <div class="dots" id="dots"></div>
+            <button type="button" class="nav-btn" id="next" aria-label="Próximo site">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="produto" aria-labelledby="label-produto">
+        <h2 class="section-label" id="label-produto" data-section="produto"></h2>
+        <div id="product"></div>
+      </section>
+
+      <section class="section" id="quem-sou-eu" aria-labelledby="label-quem">
+        <h2 class="section-label" id="label-quem" data-section="quem-sou-eu"></h2>
+        <div class="about" id="about"></div>
+      </section>
+
+      <section class="section" id="jornada" aria-labelledby="label-jornada">
+        <h2 class="section-label" id="label-jornada" data-section="jornada"></h2>
+        <ol class="journey" id="journey"></ol>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <nav class="social social-footer" id="social-footer" aria-label="Redes sociais"></nav>
+      <p class="footer-meta" id="copyright"></p>
+      <a class="footer-wa" id="footer-wa" href="#" target="_blank" rel="noopener"></a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
