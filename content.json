@@ -8,74 +8,61 @@
     "alt": "Foto de perfil de Matheus"
   },
   "social": [
-    {
-      "id": "instagram",
-      "label": "Instagram",
-      "url": "https://www.instagram.com/matheus.studio_/"
-    },
-    {
-      "id": "tiktok",
-      "label": "TikTok",
-      "url": "https://www.tiktok.com/@SEUPERFIL"
-    }
+    { "id": "instagram", "label": "Instagram", "url": "https://www.instagram.com/matheus.studio_/" },
+    { "id": "tiktok", "label": "TikTok", "url": "https://www.tiktok.com/@SEUPERFIL" }
   ],
   "tabs": [
-    {
-      "id": "portal",
-      "label": "Portal",
-      "href": "index.html"
-    },
-    {
-      "id": "projetos",
-      "label": "Projetos",
-      "href": "projetos.html"
-    },
-    {
-      "id": "produto",
-      "label": "Produto",
-      "href": "produto.html"
-    },
-    {
-      "id": "quem-sou-eu",
-      "label": "Quem sou eu",
-      "href": "quem-sou-eu.html"
-    },
-    {
-      "id": "jornada",
-      "label": "Jornada",
-      "href": "jornada.html"
-    }
+    { "id": "portal", "label": "Portal" },
+    { "id": "projetos", "label": "Projetos" },
+    { "id": "produto", "label": "Produto" },
+    { "id": "quem-sou-eu", "label": "Quem sou eu" },
+    { "id": "jornada", "label": "Jornada" }
   ],
   "portal": {
-    "items": [
+    "groups": [
       {
-        "title": "Peça seu site",
-        "description": "Conte sobre o seu negócio e receba uma proposta para um site que apresenta e vende.",
-        "cta": "Acessar",
-        "href": "https://wa.me/55SEUNUMERO?text=Oi%2C%20quero%20pedir%20um%20site!",
-        "thumb": "images/card-1.jpg"
+        "title": "Atendimento",
+        "items": [
+          {
+            "title": "Peça seu site",
+            "description": "Conte sobre o seu negócio e receba uma proposta para um site que apresenta e vende.",
+            "cta": "Acessar",
+            "href": "https://wa.me/55SEUNUMERO?text=Oi%2C%20quero%20pedir%20um%20site!",
+            "image": "images/card-1.jpg"
+          }
+        ]
       },
       {
-        "title": "Ferramentas que eu uso",
-        "description": "Os apps e serviços que uso todos os dias para criar sites e tocar meu trabalho.",
-        "cta": "Acessar",
-        "href": "#",
-        "thumb": "images/card-2.jpg"
+        "title": "Ferramentas",
+        "items": [
+          {
+            "title": "Ferramentas que eu uso",
+            "description": "Os apps e serviços que uso todos os dias para criar sites e tocar meu trabalho.",
+            "cta": "Acessar",
+            "href": "#",
+            "image": "images/card-2.jpg"
+          },
+          {
+            "title": "Curso ou material",
+            "description": "Um material para aprender a usar IA no dia a dia do seu negócio.",
+            "cta": "Acessar",
+            "href": "#",
+            "image": "images/card-3.jpg"
+          }
+        ]
       },
       {
-        "title": "Curso ou material",
-        "description": "Um material para aprender a usar IA no dia a dia do seu negócio.",
-        "cta": "Acessar",
-        "href": "#",
-        "thumb": "images/card-3.jpg"
-      },
-      {
-        "title": "Meu produto",
-        "description": "Em breve. Entre na lista para saber quando abrir.",
-        "cta": "Ver",
-        "href": "produto.html",
-        "thumb": "images/card-4.jpg",
-        "badge": "Em breve"
+        "title": "Produto",
+        "items": [
+          {
+            "title": "Meu produto",
+            "description": "Em breve. Entre na lista para saber quando abrir.",
+            "cta": "Ver",
+            "href": "#produto",
+            "image": "images/card-4.jpg",
+            "badge": "Em breve"
+          }
+        ]
       }
     ],
     "disclaimer": "Alguns links são de parceiros. Eu só indico o que uso e posso receber comissão sem custo extra para você."
@@ -102,47 +89,30 @@
     "badge": "Em breve",
     "cta": "Entrar na lista",
     "href": "https://wa.me/55SEUNUMERO?text=Quero%20entrar%20na%20lista%20do%20Meu%20produto",
-    "thumb": "images/produto.jpg"
+    "image": "images/produto.jpg"
   },
   "about": {
     "photo": "images/perfil.jpg",
-    "text": "[TROQUE PELA HISTÓRIA REAL] Este é um parágrafo de exemplo. Conte quem você é, o que faz e por que cria sites para negócios.",
+    "quote": "[TROQUE] Uma frase curta sobre você.",
+    "text": [
+      "[TROQUE PELA HISTÓRIA REAL] Este é um parágrafo de exemplo. Conte quem você é, o que faz e por que cria sites para negócios.",
+      "Use este segundo parágrafo para contar o que você entrega e como você trabalha."
+    ],
     "stats": [
-      {
-        "value": "0",
-        "label": "sites"
-      },
-      {
-        "value": "IA",
-        "label": "no dia a dia"
-      },
-      {
-        "value": "1",
-        "label": "objetivo: seu site vendendo"
-      }
+      { "value": "0", "label": "sites" },
+      { "value": "IA", "label": "no dia a dia" },
+      { "value": "1", "label": "objetivo: seu site vendendo" }
     ]
   },
   "journey": {
     "items": [
-      {
-        "when": "2024",
-        "text": "[TROQUE] Primeiro projeto entregue."
-      },
-      {
-        "when": "2025",
-        "text": "[TROQUE] Marco da sua jornada."
-      },
-      {
-        "when": "2026",
-        "text": "[TROQUE] O que você faz hoje."
-      }
+      { "when": "2024", "text": "[TROQUE] Primeiro projeto entregue." },
+      { "when": "2025", "text": "[TROQUE] Marco da sua jornada." },
+      { "when": "2026", "text": "[TROQUE] O que você faz hoje." }
     ]
   },
   "footer": {
     "copyright": "© 2026 Matheus Studio",
-    "whatsapp": {
-      "label": "Falar no WhatsApp",
-      "url": "https://wa.me/55SEUNUMERO"
-    }
+    "whatsapp": { "label": "Falar no WhatsApp", "url": "https://wa.me/55SEUNUMERO" }
   }
 }

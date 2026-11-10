@@ -18,7 +18,9 @@
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.2v13.1a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.1a6.1 6.1 0 1 0 5.2 6V8.6a7.4 7.4 0 0 0 4.3 1.4V6.8a4.3 4.3 0 0 1-4.3-4.3z"/></svg>'
   };
 
-  // Imagem que não existe vira um bloco: dourado com inicial "M" ou cinza liso.
+  const ARROW_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  // Imagem que não existe vira um bloco: dourado com "M" ou cinza liso.
   document.addEventListener('error', (event) => {
     const img = event.target;
     if (!(img instanceof HTMLImageElement) || !img.dataset.fallback) return;
@@ -38,35 +40,60 @@
 
   const tabsHTML = (tabs, current) => `
     <nav class="tabs" aria-label="Seções">
-      <ul class="tabs-list">
-        ${tabs.map((t) => `<li><a href="${esc(t.href)}"${t.id === current ? ' aria-current="page"' : ''}>${esc(t.label)}</a></li>`).join('')}
-      </ul>
+      ${tabs.map((t) => `<button type="button" class="tab" data-tab="${esc(t.id)}" aria-pressed="${t.id === current}">${esc(t.label)}</button>`).join('')}
     </nav>`;
 
+  const cardHTML = (item) => {
+    const external = isExternal(item.href);
+    const attrs = external ? ' target="_blank" rel="noopener"' : '';
+    const tab = item.href === '#produto' ? ' data-go="produto"' : '';
+    return `
+      <a class="card" href="${esc(item.href)}"${attrs}${tab}>
+        <div class="card-media">
+          <img src="${esc(item.image)}" alt="" loading="lazy" decoding="async" data-fallback="gray">
+          ${item.badge ? `<span class="badge">${esc(item.badge)}</span>` : ''}
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">${esc(item.title)}</h3>
+          <p class="card-desc">${esc(item.description)}</p>
+          <span class="card-cta">${esc(item.cta)} <span class="arrow" aria-hidden="true">${ARROW_SVG}</span></span>
+        </div>
+      </a>`;
+  };
+
   const heroHTML = (profile) => `
-    <section class="hero" aria-labelledby="name">
-      <img class="avatar" src="${esc(profile.image)}" alt="${esc(profile.alt)}" width="140" height="140" data-fallback="M">
-      <h1 class="hero-name" id="name">${esc(profile.name)}</h1>
+    <header class="hero">
+      <img class="avatar" src="${esc(profile.image)}" alt="${esc(profile.alt)}" width="128" height="128" data-fallback="M">
+      <h1 class="hero-name">${esc(profile.name)}</h1>
       <p class="hero-label">${esc(profile.label)}</p>
+    </header>`;
+
+  const portalView = (data) => `
+    <section class="view" aria-labelledby="view-title">
+      <h1 class="visually-hidden" id="view-title">Portal</h1>
+      <div class="stack">
+        ${data.portal.groups.map((g) => `
+          <div class="group">
+            <h2 class="group-title">${esc(g.title)}</h2>
+            <div class="group-items">${g.items.map(cardHTML).join('')}</div>
+          </div>`).join('')}
+      </div>
+      <p class="disclaimer">${esc(data.portal.disclaimer)}</p>
     </section>`;
 
-  const labelHTML = (text) => `<h1 class="section-label">${esc(text)}</h1>`;
-
-  const cardHTML = (item) => {
-    const attrs = isExternal(item.href) ? ' target="_blank" rel="noopener"' : '';
-    return `
-      <li>
-        <a class="card" href="${esc(item.href)}"${attrs}>
-          <img class="thumb" src="${esc(item.thumb)}" alt="Miniatura de ${esc(item.title)}" width="96" height="96" loading="lazy" data-fallback="M">
-          <span class="card-body">
-            ${item.badge ? `<span class="badge">${esc(item.badge)}</span>` : ''}
-            <span class="card-title">${esc(item.title)}</span>
-            <span class="card-desc">${esc(item.description)}</span>
-            <span class="card-cta">${esc(item.cta)} <span class="arrow" aria-hidden="true">→</span></span>
-          </span>
-        </a>
-      </li>`;
-  };
+  const carouselShell = `
+    <div class="carousel">
+      <ul class="track" id="track"></ul>
+      <div class="carousel-ctrl">
+        <button type="button" class="nav-btn" id="prev" aria-label="Site anterior">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="dots" id="dots"></div>
+        <button type="button" class="nav-btn" id="next" aria-label="Próximo site">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>`;
 
   const siteHTML = (site) => `
     <li class="site-item">
@@ -75,27 +102,13 @@
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           <span class="site-url">${esc(site.display)}</span>
         </span>
-        <img class="site-thumb" src="${esc(site.thumb)}" alt="Captura do site ${esc(site.client)}" loading="lazy" data-fallback="gray">
+        <img class="site-thumb" src="${esc(site.thumb)}" alt="Captura do site ${esc(site.client)}" loading="lazy" decoding="async" data-fallback="gray">
         <span class="site-foot">
           <span class="site-name">${esc(site.client)}</span>
           <span class="site-link">Abrir site ↗</span>
         </span>
       </a>
     </li>`;
-
-  const carouselShell = `
-    <div class="carousel">
-      <ul class="track" id="track"></ul>
-      <div class="carousel-ctrl">
-        <button type="button" class="nav-btn" id="prev" aria-label="Site anterior">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </button>
-        <div class="dots" id="dots"></div>
-        <button type="button" class="nav-btn" id="next" aria-label="Próximo site">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </button>
-      </div>
-    </div>`;
 
   function initCarousel(items) {
     const track = $('#track');
@@ -135,90 +148,126 @@
     update();
   }
 
-  function pageContent(page, data, label) {
-    switch (page) {
-      case 'portal':
-        return `
-          ${heroHTML(data.profile)}
-          <section class="section">
-            ${labelHTML(label)}
-            <ul class="links">${data.portal.items.map(cardHTML).join('')}</ul>
-            <p class="disclaimer">${esc(data.portal.disclaimer)}</p>
-          </section>`;
+  const projectsView = (data) => `
+    <section class="view" aria-labelledby="view-title">
+      <h1 class="view-title" id="view-title">Projetos</h1>
+      ${carouselShell}
+    </section>`;
 
-      case 'projetos':
-        return `
-          <section class="section">
-            ${labelHTML(label)}
-            ${carouselShell}
-          </section>`;
+  const productView = (data) => {
+    const p = data.product;
+    return `
+      <section class="view" aria-labelledby="view-title">
+        <h1 class="view-title" id="view-title">Produto</h1>
+        <div class="product">
+          <div class="card-media">
+            <img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" data-fallback="gray">
+            <span class="badge">${esc(p.badge)}</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${esc(p.title)}</h3>
+            <p class="card-desc">${esc(p.description)}</p>
+            <a class="btn" href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.cta)}</a>
+          </div>
+        </div>
+      </section>`;
+  };
 
-      case 'produto': {
-        const p = data.product;
-        return `
-          <section class="section">
-            ${labelHTML(label)}
-            <div class="links">
-              <div class="card card-static">
-                <img class="thumb" src="${esc(p.thumb)}" alt="Miniatura de ${esc(p.title)}" width="96" height="96" loading="lazy" data-fallback="M">
-                <div class="card-body">
-                  <span class="badge">${esc(p.badge)}</span>
-                  <span class="card-title">${esc(p.title)}</span>
-                  <span class="card-desc">${esc(p.description)}</span>
-                  <a class="btn-outline" href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.cta)}</a>
-                </div>
-              </div>
+  const aboutView = (data) => {
+    const a = data.about;
+    return `
+      <section class="view about" aria-labelledby="view-title">
+        <div class="about-photo">
+          <img src="${esc(a.photo)}" alt="${esc(data.profile.alt)}" loading="lazy" decoding="async" data-fallback="M">
+        </div>
+        <div class="about-copy">
+          <h1 class="view-title" id="view-title">Quem sou eu</h1>
+          <p class="about-quote">${esc(a.quote)}</p>
+          ${a.text.map((t) => `<p class="about-text">${esc(t)}</p>`).join('')}
+          <div class="stats">
+            ${a.stats.map((s) => `
+              <div class="stat">
+                <span class="stat-value">${esc(s.value)}</span>
+                <span class="stat-label">${esc(s.label)}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+      </section>`;
+  };
+
+  const journeyView = (data) => `
+    <section class="view" aria-labelledby="view-title">
+      <h1 class="view-title" id="view-title">Jornada</h1>
+      <ol class="timeline">
+        ${data.journey.items.map((j) => `
+          <li class="step">
+            <span class="step-dot" aria-hidden="true"></span>
+            <div class="step-body">
+              <span class="step-when">${esc(j.when)}</span>
+              <p class="step-text">${esc(j.text)}</p>
             </div>
-          </section>`;
-      }
+          </li>`).join('')}
+      </ol>
+    </section>`;
 
-      case 'quem-sou-eu': {
-        const a = data.about;
-        return `
-          <section class="section">
-            ${labelHTML(label)}
-            <div class="about">
-              <img class="about-photo" src="${esc(a.photo)}" alt="${esc(data.profile.alt)}" width="200" height="200" loading="lazy" data-fallback="M">
-              <p class="about-text">${esc(a.text)}</p>
-              <div class="stats">
-                ${a.stats.map((s) => `
-                  <div class="stat">
-                    <span class="stat-value">${esc(s.value)}</span>
-                    <span class="stat-label">${esc(s.label)}</span>
-                  </div>`).join('')}
-              </div>
-            </div>
-          </section>`;
-      }
+  const VIEWS = {
+    portal: portalView,
+    projetos: projectsView,
+    produto: productView,
+    'quem-sou-eu': aboutView,
+    jornada: journeyView
+  };
 
-      case 'jornada':
-        return `
-          <section class="section">
-            ${labelHTML(label)}
-            <ol class="journey">
-              ${data.journey.items.map((j) => `<li><span class="when">${esc(j.when)}</span><span class="journey-text">${esc(j.text)}</span></li>`).join('')}
-            </ol>
-          </section>`;
+  let DATA = null;
+  const TAB_IDS = () => DATA.tabs.map((t) => t.id);
 
-      default:
-        return '';
+  // Lê a aba pelo hash da URL (#projetos etc.); cai no Portal se não existir.
+  const tabFromHash = () => {
+    const id = decodeURIComponent(location.hash.replace('#', ''));
+    return TAB_IDS().includes(id) ? id : 'portal';
+  };
+
+  function showTab(id, { focus = false, pushHash = true } = {}) {
+    if (!DATA) return;
+    const app = $('#app');
+    const tab = DATA.tabs.find((t) => t.id === id) || DATA.tabs[0];
+    const current = tab.id;
+
+    const head = current === 'portal' ? heroHTML(DATA.profile) : '';
+    app.innerHTML = `${head}${tabsHTML(DATA.tabs, current)}<div class="view-wrap">${VIEWS[current](DATA)}</div>`;
+
+    if (current === 'projetos') initCarousel(DATA.projects.items);
+
+    $$('.tab', app).forEach((btn) =>
+      btn.addEventListener('click', () => showTab(btn.dataset.tab, { focus: true }))
+    );
+
+    $$('a[data-go]', app).forEach((a) =>
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        showTab(a.dataset.go, { focus: true });
+      })
+    );
+
+    document.title = current === 'portal' ? DATA.pageTitle : `${tab.label} · ${DATA.wordmark}`;
+
+    if (pushHash) {
+      const target = current === 'portal' ? location.pathname : `#${current}`;
+      history.pushState({ tab: current }, '', target);
+    }
+
+    if (focus) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const title = $('#view-title', app);
+      if (title) title.setAttribute('tabindex', '-1'), title.focus({ preventScroll: true });
     }
   }
 
-  function render(data) {
-    const page = document.body.dataset.page || 'portal';
-    const tab = data.tabs.find((t) => t.id === page);
-    const label = tab ? tab.label : '';
-
-    document.title = page === 'portal' ? data.pageTitle : `${label} · ${data.wordmark}`;
+  function renderShell(data) {
+    document.title = data.pageTitle;
     $('#wordmark').textContent = data.wordmark;
     $('#social-top').innerHTML = socialLinks(data.social);
     $('#social-footer').innerHTML = socialLinks(data.social);
-
-    $('#page').innerHTML = `${tabsHTML(data.tabs, page)}<div class="wrap">${pageContent(page, data, label)}</div>`;
-
-    if (page === 'projetos') initCarousel(data.projects.items);
-
     $('#copyright').textContent = data.footer.copyright;
     const wa = $('#footer-wa');
     wa.href = data.footer.whatsapp.url;
@@ -234,15 +283,20 @@
 
   initTopbar();
 
+  window.addEventListener('popstate', () => showTab(tabFromHash(), { pushHash: false }));
+
   fetch('content.json', { cache: 'no-cache' })
     .then((r) => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       return r.json();
     })
-    .then(render)
+    .then((data) => {
+      DATA = data;
+      renderShell(data);
+      showTab(tabFromHash(), { pushHash: false });
+    })
     .catch((err) => {
       console.error('Não foi possível carregar content.json:', err);
-      const main = $('#page');
-      if (main) main.innerHTML = '<p class="wrap" style="padding-top:120px;color:#8E877C">Não foi possível carregar o conteúdo. Abra a página por um servidor (veja o README).</p>';
+      $('#app').innerHTML = '<p class="loading">Não foi possível carregar o conteúdo. Abra a página por um servidor (veja o README).</p>';
     });
 })();
