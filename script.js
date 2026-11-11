@@ -105,7 +105,7 @@
         <img class="site-thumb" src="${esc(site.thumb)}" alt="Captura do site ${esc(site.client)}" loading="lazy" decoding="async" data-fallback="gray">
         <span class="site-foot">
           <span class="site-name">${esc(site.client)}</span>
-          <span class="site-link">Abrir site ↗</span>
+          <span class="site-link">${site.url === '#' ? 'Projeto de exemplo' : 'Abrir site ↗'}</span>
         </span>
       </a>
     </li>`;
@@ -240,6 +240,11 @@
 
     $$('.tab', app).forEach((btn) =>
       btn.addEventListener('click', () => showTab(btn.dataset.tab, { focus: true }))
+    );
+
+    // Links ainda sem destino ("#") não fazem nada, em vez de abrir uma aba em branco.
+    $$('a[href="#"]', app).forEach((a) =>
+      a.addEventListener('click', (e) => e.preventDefault())
     );
 
     $$('a[data-go]', app).forEach((a) =>
