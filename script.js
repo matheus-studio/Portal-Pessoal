@@ -97,17 +97,17 @@
 
   const siteHTML = (site) => `
     <li class="site-item">
-      <a class="site" href="${esc(site.url)}" target="_blank" rel="noopener" aria-label="Abrir site de ${esc(site.client)} em nova aba">
-        <span class="site-bar">
+      <article class="site">
+        <div class="site-bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="site-url">${esc(site.display)}</span>
-        </span>
-        <img class="site-thumb" src="${esc(site.thumb)}" alt="Captura do site ${esc(site.client)}" loading="lazy" decoding="async" data-fallback="gray">
-        <span class="site-foot">
-          <span class="site-name">${esc(site.client)}</span>
-          <span class="site-link">${site.url === '#' ? 'Projeto de exemplo' : 'Abrir site ↗'}</span>
-        </span>
-      </a>
+          <span class="site-pill" aria-hidden="true"></span>
+        </div>
+        <img class="site-thumb" src="${esc(site.thumb)}" alt="Prévia do site ${esc(site.client)}" loading="lazy" decoding="async" data-fallback="gray">
+        <div class="site-foot">
+          <h3 class="site-name">${esc(site.client)}</h3>
+          <p class="site-tag">${esc(site.category)}</p>
+        </div>
+      </article>
     </li>`;
 
   function initCarousel(items) {
@@ -165,10 +165,25 @@
             <span class="badge">${esc(p.badge)}</span>
           </div>
           <div class="card-body">
-            <h3 class="card-title">${esc(p.title)}</h3>
+            <h2 class="card-title">${esc(p.headline)}</h2>
             <p class="card-desc">${esc(p.description)}</p>
-            <a class="btn" href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.cta)}</a>
           </div>
+        </div>
+        <div class="stages">
+          <h2 class="group-title">${esc(p.stagesTitle)}</h2>
+          <ol class="stages-list">
+            ${p.stages.map((s) => `
+              <li class="stage is-${esc(s.status)}"${s.status === 'current' ? ' aria-current="step"' : ''}>
+                <span class="stage-mark" aria-hidden="true"></span>
+                <div>
+                  <span class="stage-label">${esc(s.label)}${s.status === 'current' ? ' · agora' : ''}</span>
+                  <p class="stage-text">${esc(s.text)}</p>
+                </div>
+              </li>`).join('')}
+          </ol>
+        </div>
+        <div class="product-cta">
+          <a class="btn" href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.cta)}</a>
         </div>
       </section>`;
   };

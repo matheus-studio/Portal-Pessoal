@@ -269,6 +269,101 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .product { max-width: var(--col); margin: 0 auto; }
 
+.stages {
+  max-width: var(--col);
+  margin: 40px auto 0;
+}
+
+.stages-list {
+  position: relative;
+  display: grid;
+  gap: 22px;
+}
+
+.stages-list::before {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  gap: 16px;
+}
+
+.stage-mark {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-soft);
+  background: var(--bg);
+}
+
+.stage.is-done .stage-mark {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.stage.is-done .stage-mark::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 7px;
+  width: 8px;
+  height: 14px;
+  border: solid var(--bg);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.stage.is-current .stage-mark {
+  border-color: var(--gold);
+}
+
+.stage.is-current .stage-mark::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.stage-label {
+  display: block;
+  padding-top: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stage.is-done .stage-label,
+.stage.is-current .stage-label { color: var(--gold); }
+
+.stage-text {
+  margin-top: 2px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.stage.is-current .stage-text { color: var(--cream); }
+
+.product-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
 .card-media {
   position: relative;
   aspect-ratio: 21 / 9;
@@ -391,10 +486,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border-radius: var(--radius);
   background: var(--surface);
   overflow: hidden;
-  transition: border-color .2s;
 }
-
-.site:hover { border-color: var(--line-strong); }
 
 .site-bar {
   display: flex;
@@ -412,14 +504,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: var(--gold-soft);
 }
 
-.site-url {
+.site-pill {
+  flex: 1;
+  max-width: 120px;
+  height: 8px;
   margin-left: 8px;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 12px;
-  color: var(--muted);
+  border-radius: 999px;
+  background: var(--line);
 }
 
 .site-thumb {
@@ -430,28 +521,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .site-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
+  padding: 12px 14px 14px;
 }
 
 .site-name {
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 500;
+  line-height: 1.2;
   color: var(--cream);
 }
 
-.site-link {
+.site-tag {
+  margin-top: 2px;
   font-size: 13px;
-  color: var(--gold);
-  white-space: nowrap;
+  color: var(--muted);
 }
 
 .carousel-ctrl {
@@ -742,3 +829,5 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     scroll-behavior: auto !important;
   }
 }
+
+.product-cta .btn { margin-top: 0; }

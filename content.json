@@ -8,14 +8,33 @@
     "alt": "Foto de perfil de Matheus"
   },
   "social": [
-    { "id": "instagram", "label": "Instagram", "url": "https://www.instagram.com/matheus.studio_/" }
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/matheus.studio_/"
+    }
   ],
   "tabs": [
-    { "id": "portal", "label": "Portal" },
-    { "id": "projetos", "label": "Projetos" },
-    { "id": "produto", "label": "Produto" },
-    { "id": "quem-sou-eu", "label": "Quem sou eu" },
-    { "id": "jornada", "label": "Jornada" }
+    {
+      "id": "portal",
+      "label": "Portal"
+    },
+    {
+      "id": "projetos",
+      "label": "Projetos"
+    },
+    {
+      "id": "produto",
+      "label": "Produto"
+    },
+    {
+      "id": "quem-sou-eu",
+      "label": "Quem sou eu"
+    },
+    {
+      "id": "jornada",
+      "label": "Jornada"
+    }
   ],
   "portal": {
     "groups": [
@@ -55,11 +74,11 @@
         "items": [
           {
             "title": "Aplicativo e produtos",
-            "description": "Futuramente, logo chegará por aqui. Entre na lista para saber primeiro.",
-            "cta": "Ver",
+            "description": "Estou preparando algo novo. Veja como está o andamento e entre na lista.",
+            "cta": "Acessar",
             "href": "#produto",
             "image": "images/card-4.jpg",
-            "badge": "Em breve"
+            "badge": "Em preparação"
           }
         ]
       }
@@ -70,60 +89,101 @@
     "items": [
       {
         "client": "Barbearia Navalha",
-        "display": "barbearianavalha.com.br",
-        "url": "#",
+        "category": "Site para barbearia",
         "thumb": "images/projeto-1.jpg"
       },
       {
         "client": "Aurora Pilates",
-        "display": "aurorapilates.com.br",
-        "url": "#",
+        "category": "Site para estúdio de pilates",
         "thumb": "images/projeto-2.jpg"
       },
       {
         "client": "Doce Vila Confeitaria",
-        "display": "docevila.com.br",
-        "url": "#",
+        "category": "Site para confeitaria",
         "thumb": "images/projeto-3.jpg"
       },
       {
         "client": "Clínica Vértice",
-        "display": "clinicavertice.com.br",
-        "url": "#",
+        "category": "Site para clínica",
         "thumb": "images/projeto-4.jpg"
       }
     ]
   },
   "product": {
     "title": "Aplicativo e produtos",
-    "description": "Futuramente, logo chegará por aqui. Estou preparando algo novo. Entre na lista e seja a primeira pessoa a saber.",
-    "badge": "Em breve",
+    "badge": "Em preparação",
+    "headline": "Estou preparando algo novo.",
+    "description": "Futuramente, logo chegará por aqui. Ainda está sendo feito com calma, para sair do jeito certo. Entre na lista e seja a primeira pessoa a saber quando ficar pronto.",
+    "stagesTitle": "Andamento",
+    "stages": [
+      {
+        "label": "Ideia",
+        "text": "O que vou criar e para quem.",
+        "status": "done"
+      },
+      {
+        "label": "Em construção",
+        "text": "Montando a primeira versão.",
+        "status": "current"
+      },
+      {
+        "label": "Testes",
+        "text": "Ajustes antes de abrir para todos.",
+        "status": "next"
+      },
+      {
+        "label": "Lançamento",
+        "text": "Chega primeiro para quem estiver na lista.",
+        "status": "next"
+      }
+    ],
     "cta": "Entrar na lista",
     "href": "https://wa.me/5541992058713?text=Oi%2C%20Matheus!%20Quero%20entrar%20na%20lista%20para%20saber%20quando%20o%20aplicativo%20e%20os%20produtos%20chegarem.",
     "image": "images/produto.jpg"
   },
   "about": {
     "photo": "images/perfil.jpg",
-    "quote": "[TROQUE] Uma frase curta sobre você.",
+    "quote": "Todo negócio merece um site que trabalhe por ele.",
     "text": [
-      "[TROQUE PELA HISTÓRIA REAL] Este é um parágrafo de exemplo. Conte quem você é, o que faz e por que cria sites para negócios.",
-      "Use este segundo parágrafo para contar o que você entrega e como você trabalha."
+      "Sou o Matheus, criador de sites para negócios. Comecei por curiosidade e fiquei porque vi o que um site bem feito faz: passa confiança, atrai clientes e vende até quando você está longe do telefone.",
+      "Hoje uso inteligência artificial no dia a dia para criar mais rápido, e cuido à mão de cada detalhe, do texto ao botão. Meu objetivo é simples: o seu site vendendo."
     ],
     "stats": [
-      { "value": "0", "label": "sites" },
-      { "value": "IA", "label": "no dia a dia" },
-      { "value": "1", "label": "objetivo: seu site vendendo" }
+      {
+        "value": "0",
+        "label": "sites"
+      },
+      {
+        "value": "IA",
+        "label": "no dia a dia"
+      },
+      {
+        "value": "1",
+        "label": "objetivo: seu site vendendo"
+      }
     ]
   },
   "journey": {
     "items": [
-      { "when": "2024", "text": "[TROQUE] Primeiro projeto entregue." },
-      { "when": "2025", "text": "[TROQUE] Marco da sua jornada." },
-      { "when": "2026", "text": "[TROQUE] O que você faz hoje." }
+      {
+        "when": "O começo",
+        "text": "Descobri que um bom site muda o jogo de um negócio pequeno e comecei a estudar design e código."
+      },
+      {
+        "when": "A virada",
+        "text": "Passei a usar IA no dia a dia para criar mais rápido, sem perder o cuidado com cada detalhe."
+      },
+      {
+        "when": "Hoje",
+        "text": "O Matheus Studio entrega sites pensados para vender, e eu mostro cada projeto aqui no portal."
+      }
     ]
   },
   "footer": {
     "copyright": "© 2026 Matheus Studio",
-    "whatsapp": { "label": "Falar no WhatsApp", "url": "https://wa.me/5541992058713" }
+    "whatsapp": {
+      "label": "Falar no WhatsApp",
+      "url": "https://wa.me/5541992058713"
+    }
   }
 }
